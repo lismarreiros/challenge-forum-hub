@@ -9,15 +9,15 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record DadosCadastroTopico(
-        @NotBlank
+        @NotBlank(message = "O título não pode ser nulo")
         String titulo,
 
-        @NotBlank
+        @NotBlank(message = "A mensagem não pode ser nula")
         String mensagem,
 
         LocalDateTime dataCriacao,
 
-        @NotBlank
+        @NotNull
         Status status,
 
         @NotNull
@@ -27,7 +27,6 @@ public record DadosCadastroTopico(
         @NotNull
         @Valid
         Curso curso
-
 
 ) {
 }

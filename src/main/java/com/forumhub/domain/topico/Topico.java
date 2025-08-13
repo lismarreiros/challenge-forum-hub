@@ -8,12 +8,14 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "topico")
-@Entity(name="Topico")
+@Entity(name= "Topico")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,7 +26,8 @@ public class Topico {
     private Long id;
     private String titulo;
     private String mensagem;
-    @Column(name = "datacriacao", nullable = false)
+    @Column(name = "datacriacao", nullable = false, updatable = false)
+    @CreationTimestamp
     private LocalDateTime dataCriacao;
 
     @Enumerated(EnumType.STRING)
