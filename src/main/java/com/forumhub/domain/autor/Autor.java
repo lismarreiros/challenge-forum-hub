@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "Autor")
+@Entity
 @Table(name = "usuario")
 @Getter
 @AllArgsConstructor

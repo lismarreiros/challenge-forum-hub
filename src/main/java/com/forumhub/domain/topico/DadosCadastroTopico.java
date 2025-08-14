@@ -15,18 +15,8 @@ public record DadosCadastroTopico(
         @NotBlank(message = "A mensagem não pode ser nula")
         String mensagem,
 
-        LocalDateTime dataCriacao,
-
-        @NotNull
-        Status status,
-
-        @NotNull
-        @Valid
-        Autor autor,
-
-        @NotNull
-        @Valid
-        Curso curso
+        @NotBlank(message = "O nome do curso não pode ser nulo")
+        String cursoNome
 
 ) {
 }
