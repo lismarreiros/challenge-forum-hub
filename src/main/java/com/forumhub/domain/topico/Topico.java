@@ -1,14 +1,15 @@
 package com.forumhub.domain.topico;
-
-import com.forumhub.domain.autor.Autor;
 import com.forumhub.domain.curso.Curso;
 import com.forumhub.domain.resposta.Resposta;
+import com.forumhub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,11 +32,11 @@ public class Topico {
     private LocalDateTime dataCriacao;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.NAO_RESPONDIDO;
 
     @ManyToOne
     @JoinColumn(name = "autor_id", nullable = false)
-    private Autor autor;
+    private Usuario autor;
 
     @ManyToOne
     @JoinColumn(name = "curso", nullable = false)
@@ -44,13 +45,13 @@ public class Topico {
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Resposta> respostas = new ArrayList<>();
 
-    public Topico(DadosCadastroTopico dados) {
+
+    public Topico(DadosCadastroTopico dados, Usuario autor, Curso curso) {
         this.titulo = dados.titulo();
         this.mensagem = dados.mensagem();
-        this.dataCriacao = dados.dataCriacao();
-        this.status = dados.status();
-        this.autor = dados.autor();
-        this.curso = dados.curso();
+        this.status = getStatus();
+        this.autor = autor;
+        this.curso = curso;
         this.respostas = new ArrayList<>();
     }
 }

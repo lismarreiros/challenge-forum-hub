@@ -1,9 +1,6 @@
 package com.forumhub.controller;
 
-import com.forumhub.domain.topico.DadosCadastroTopico;
-import com.forumhub.domain.topico.DadosDetalhamentoTopico;
-import com.forumhub.domain.topico.Topico;
-import com.forumhub.domain.topico.TopicoRepository;
+import com.forumhub.domain.topico.*;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +15,13 @@ public class TopicoController {
     @Autowired
     private TopicoRepository repository;
 
+    @Autowired
+    TopicoService topicoService;
+
     @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroTopico dados, UriComponentsBuilder uriBuilder) {
-       var topico = new Topico(dados);
+       Topico topico = topicoService.cadastrar(dados);
        repository.save(topico);
 
        var uri = uriBuilder.path("/topicos/{id}").buildAndExpand(topico.getId()).toUri();
