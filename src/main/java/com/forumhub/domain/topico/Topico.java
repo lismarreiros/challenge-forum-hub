@@ -1,7 +1,4 @@
 package com.forumhub.domain.topico;
-
-import com.forumhub.domain.autor.Autor;
-import com.forumhub.domain.autor.AutorRepository;
 import com.forumhub.domain.curso.Curso;
 import com.forumhub.domain.resposta.Resposta;
 import com.forumhub.domain.usuario.Usuario;
@@ -40,9 +37,6 @@ public class Topico {
     @ManyToOne
     @JoinColumn(name = "autor_id", nullable = false)
     private Usuario autor;
-
-    @Autowired
-    AutorRepository autorRepository;
 
     @ManyToOne
     @JoinColumn(name = "curso", nullable = false)

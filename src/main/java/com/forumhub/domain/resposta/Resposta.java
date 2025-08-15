@@ -1,7 +1,7 @@
 package com.forumhub.domain.resposta;
 
-import com.forumhub.domain.autor.Autor;
 import com.forumhub.domain.topico.Topico;
+import com.forumhub.domain.usuario.Usuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +29,7 @@ public class Resposta {
 
     @ManyToOne
     @JoinColumn(name = "autor_id", nullable = false)
-    private Autor autor;
+    private Usuario autor;
+
 
 }
