@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -35,12 +36,12 @@ public class Topico {
     @Enumerated(EnumType.STRING)
     private Status status = Status.NAO_RESPONDIDO;
 
-    @ManyToOne
-    @JoinColumn(name = "autor_id", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "autor_id", nullable = true)
     private Usuario autor;
 
-    @ManyToOne
-    @JoinColumn(name = "curso", nullable = false)
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "curso", nullable = true)
     private Curso curso;
 
     @OneToMany(mappedBy = "topico", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -65,5 +66,4 @@ public class Topico {
             this.mensagem = dados.mensagem();
         }
     }
-
 }

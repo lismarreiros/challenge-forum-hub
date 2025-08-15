@@ -7,8 +7,8 @@ import com.forumhub.domain.usuario.UsuarioRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -34,10 +34,9 @@ public class TopicoService {
     }
 
     public void excluir(Long id) {
-        if (!topicoRepository.existsById(id)) {
-            throw new EntityNotFoundException("Tópico não encontrado!");
+        if (topicoRepository.existsById(id)) {
+            topicoRepository.deleteById(id);
         }
-        topicoRepository.deleteById(id);
     }
 
 }
