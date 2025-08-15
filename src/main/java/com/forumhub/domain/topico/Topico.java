@@ -3,6 +3,7 @@ import com.forumhub.domain.curso.Curso;
 import com.forumhub.domain.resposta.Resposta;
 import com.forumhub.domain.usuario.Usuario;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -54,4 +55,15 @@ public class Topico {
         this.curso = curso;
         this.respostas = new ArrayList<>();
     }
+
+    public void atualizarInformacoes(@Valid DadosAtualizarTopico dados) {
+        if (dados.titulo() != null) {
+            this.titulo = dados.titulo();
+        }
+
+        if (dados.mensagem() != null) {
+            this.mensagem = dados.mensagem();
+        }
+    }
+
 }

@@ -4,6 +4,7 @@ import com.forumhub.domain.curso.Curso;
 import com.forumhub.domain.curso.CursoRepository;
 import com.forumhub.domain.usuario.Usuario;
 import com.forumhub.domain.usuario.UsuarioRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,19 +24,20 @@ public class TopicoService {
     private TopicoRepository topicoRepository;
 
     public Topico cadastrar(DadosCadastroTopico dados) {
-        // Pega email do usuário logado
         String emailLogado = SecurityContextHolder.getContext().getAuthentication().getName();
         Usuario autorLogado = usuarioRepository.findUsuarioByLogin(emailLogado);
-
-
-        // Busca curso pelo nome
         Curso curso = cursoRepository.findByNome(dados.cursoNome());
-//                .orElseThrow(() -> new RuntimeException("Curso não encontrado"));
 
-        // Cria tópico com autor e curso já definidos
         Topico topico = new Topico(dados, autorLogado, curso);
 
         return topicoRepository.save(topico);
+    }
+
+    public void excluir(Long id) {
+        if (!topicoRepository.existsById(id)) {
+            throw new EntityNotFoundException("Tópico não encontrado!");
+        }
+        topicoRepository.deleteById(id);
     }
 
 }
